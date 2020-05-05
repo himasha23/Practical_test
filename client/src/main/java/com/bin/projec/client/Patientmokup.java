@@ -53,22 +53,24 @@ List<Patient> patients = new ArrayList<Patient>();
 				output += "<tr><td><input id=\"hidItemIDUpdate\" name=\"hidItemIDUpdate\"type=\"hidden\" value=\"" + pid + "\">"+ pid + "</td>";
 				
 				// Add into the html table
-				 output += "<tr><td>" + pid + "</td>";
+				 output += "<td>" + pid + "</td>";
 				 output += "<td>" + pname + "</td>";
 				 output += "<td>" + paddress + "</td>";
 				 output += "<td>" + pmobile + "</td>";
 				 output += "<td>" + page + "</td>";
 				 output += "<td>" + pwd + "</td>";
 				 // buttons
-				 output += "<td>"
+			/*	 output += "<td>"
 				 		+ "<input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btnUpdate btn btn-secondary\">"
 				 		+ "</td>"+ "<td>"
 				 				+ "<form method=\"post\" action=\"index.jsp\">"
 				 				+ ""+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-                           + ""+"<input name=\"hidItemIDDelete\" type=\"hidden\" value=\"" + pid+ "\">" + "</form></td></tr>"; 
+                           + ""+"<input name=\"hidItemIDDelete\" type=\"hidden\" value=\"" + pid + "\">" + "</form></td></tr>"; 
 			
-				
+				*/
 				/*patients.add(pat); */
+				 
+				 output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btnUpdate btn btn-secondary\"></td><td><form method=\"post\" action=\"index.jsp\"><input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\"><input name=\"hidItemIDDelete\" type=\"hidden\" value=\"" + pid + "\">" + "</form></td></tr>"; 
 			}
 			output += "</table>"; 
 			return output; 
@@ -77,42 +79,41 @@ List<Patient> patients = new ArrayList<Patient>();
 		}
 		
 		
+	public String createpatient(String id,String name,String address,String mobile,String age,String wd) {
+		
+		String output = "";
+		
+		try {
+		
+		 PreparedStatement ps = getConnection().prepareStatement("insert into patient (pid,pname,paddress,pmobile,page,pwd) values (?,?,?,?,?,?)");
+		
+		 ps.setString(1, id);
+		ps.setString(2, name);
+		ps.setString(3, address);
+		ps.setString(4, mobile);
+		ps.setString(5, age);
+		ps.setString(6, wd);
+		
 		
 	
 		
-		public String createpatient(Patient patient) throws Exception{
-			
-			String output = "";
-			
-			try {
-			
-			 PreparedStatement ps = getConnection().prepareStatement("insert into patient (pid,pname,paddress,pmobile,page,pwd) values (?,?,?,?,?,?)");
-			ps.setString(1, patient.getPid());
-			ps.setString(2, patient.getPname());
-			ps.setString(3, patient.getPaddress());
-			ps.setString(4, patient.getPmobile());
-			ps.setString(5, patient.getPage());
-			ps.setString(6, patient.getPwd());
-			
-			ps.executeUpdate();
-			
-			
-			
-			output = "inserted successfully";
-			
-			}
-			
-			catch(Exception e)
-			{
-				output = "error while inserting";
-				System.err.println(e.getMessage());
-			}
-			return output;
-			
+		ps.executeUpdate();
+		
+		
+		
+		output = "inserted successfully";
+		
 		}
 		
+		catch(Exception e)
+		{
+			output = "error while inserting";
+			System.err.println(e.getMessage());
+		}
+		return output;
 		
-		
+	}
+	
 		
 		
 		public String updatepatient(Patient patient)
