@@ -1,4 +1,8 @@
+<%@page import="com.bin.projec.client.Patientmokup"%>
+<%@page import="com.bin.projec.client.Patient"%>
+
 <%
+
 
 //Save---------------------------------
 if (request.getParameter("pid") != null)
@@ -10,24 +14,37 @@ if (request.getParameter("pid") != null)
 
 	//Insert--------------------------
 	if (request.getParameter("hidItemIDSave") == "")
+ {
+ stsMsg = patientobj.insertItem(request.getParameter("itemCode"),
+ request.getParameter("itemName"),
+ request.getParameter("itemPrice"),
+ request.getParameter("itemDesc"));
+ } 
+
+	else//Update----------------------
 	 {
-	 stsMsg = patientobj.createpatient(request.getParameter("pid"),
+	 stsMsg = patientobj.updatepatient(request.getParameter("hidItemIDSave"),
 	 request.getParameter("pname"),
 	 request.getParameter("paddress"),
 	 request.getParameter("pmobile"),
-	request.getParameter("page"),
-	request.getParameter("pwd"));
-	 
+	 request.getParameter("page"),
+	 request.getParameter("pwd"));
 	 } 
 
+	session.setAttribute("statusMsg", stsMsg);
+	}
 
 
 
-
-
+//Delete-----------------------------
+if (request.getParameter("hidItemIDDelete") != null)
+{
+Patientmokup patientobj = new Patientmokup();
+String stsMsg =
+patientobj.droppatient(request.getParameter("hidItemIDDelete"));
+session.setAttribute("statusMsg", stsMsg);
+}
 %>
-
-<%@page import="com.bin.projec.client.Patientmokup"%>
 
 <!DOCTYPE html>
 <html>
@@ -79,8 +96,8 @@ if (request.getParameter("pid") != null)
     
     <br>
     <%
-    Patientmokup patientobj = new Patientmokup();
-    out.print(patientobj.getPatients());
+    Patientmokup patientob = new Patientmokup();
+    out.print(patientob.getPatients());
     
     %>
     
