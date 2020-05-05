@@ -24,10 +24,9 @@ Patientmokup patientobj = new Patientmokup();
 	
 	else//Update----------------------
 	 {
-		out.println("");
-	 } 
-
-	session.setAttribute("statusMsg", stsMsg);
+	out.println("");
+	 }
+	 session.setAttribute("statusMsg", stsMsg); 
 	
 
 
@@ -46,20 +45,15 @@ Patientmokup patientobj = new Patientmokup();
 <!DOCTYPE html>
 <html>
 <head>
-
-
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="component/patientss.js"></script>
 <script src="component/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
-  <!--    <h2>Jersey RESTful Web Application!</h2>
-    <p><a href="webapi/myresource">Jersey resource</a>
-    <p>Visit <a href="http://jersey.java.net">Project Jersey website</a>
-    for more information on Jersey!
     
-    -->
-<form id="formItem" name="formItem" method="post" action="index.jsp" style="width:50%;align:center;">
+<h1 style="text-align:left">Patient Details</h1>
+<form id="formItem" name="formItem" method="post" action="index.jsp" style="width:80%;">
  Id:
 <input id="pid" name="pid" type="text"
  class="form-control form-control-sm" required>
@@ -71,7 +65,7 @@ Patientmokup patientobj = new Patientmokup();
  class="form-control form-control-sm" required>
  <br> Mobile:
  <input id="pmobile" name="pmobile" type="text"
- class="form-control form-control-sm" required>
+ class="form-control form-control-sm" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
 <br> Age:
 <input id="page" name="page" type="text"
  class="form-control form-control-sm" required>
@@ -84,7 +78,7 @@ Patientmokup patientobj = new Patientmokup();
 <input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
 
 </form>
-    
+   
     <div id ="alertSuccess" class="alert alert success">
     <%
     out.print(session.getAttribute("statusMsg"));
@@ -99,7 +93,7 @@ Patientmokup patientobj = new Patientmokup();
     out.print(patientob.getPatients());
     
     %>
-    
+   
    
 </body>
 </html>

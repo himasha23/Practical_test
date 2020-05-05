@@ -17,7 +17,7 @@ List<Patient> patients = new ArrayList<Patient>();
 	//for checking
 		public Patientmokup(){
 			
-			Patient patient1 = new Patient("1","jack","colombo","13244","12","see");
+		Patient patient1 = new Patient("1","jack","colombo","13244","12","see");
 			Patient patient2 = new Patient("2","john","galle","132234","22","redo");
 			Patient patient3 = new Patient("3","su","mana","112244","32","nowa");
 			
@@ -25,7 +25,7 @@ List<Patient> patients = new ArrayList<Patient>();
 			
 			}
 		
-		
+		//retrive details
 	public String getPatients() throws SQLException{
 			
 		String output = ""; 
@@ -60,15 +60,7 @@ List<Patient> patients = new ArrayList<Patient>();
 				 output += "<td>" + page + "</td>";
 				 output += "<td>" + pwd + "</td>";
 				 // buttons
-			/*	 output += "<td>"
-				 		+ "<input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btnUpdate btn btn-secondary\">"
-				 		+ "</td>"+ "<td>"
-				 				+ "<form method=\"post\" action=\"index.jsp\">"
-				 				+ ""+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-                           + ""+"<input name=\"hidItemIDDelete\" type=\"hidden\" value=\"" + pid + "\">" + "</form></td></tr>"; 
 			
-				*/
-				/*patients.add(pat); */
 				 
 				 output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btnUpdate btn btn-secondary\"></td><td><form method=\"post\" action=\"index.jsp\"><input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\"><input name=\"hidItemIDDelete\" type=\"hidden\" value=\"" + pid + "\">" + "</form></td></tr>"; 
 			}
@@ -78,7 +70,7 @@ List<Patient> patients = new ArrayList<Patient>();
 		
 		}
 		
-		
+		//add patient
 	public String createpatient(String id,String name,String address,String mobile,String age,String wd) {
 		
 		String output = "";
@@ -114,47 +106,46 @@ List<Patient> patients = new ArrayList<Patient>();
 		
 	}
 	
-		
-		
-		public String updatepatient(Patient patient)
-		 {
-			String output = "";
-		try
-		 {
-			Connection con = getConnection();
-		 if (con == null)
-		 {
-			 return "Error while connecting to the database for updating."; }
-		 
-		 String query = "UPDATE patient SET pname=?,pmobile=?,paddress=?,page=?,pwd=? WHERE pid=?";
-		 PreparedStatement preparedStmt = con.prepareStatement(query);
-		 
-		 // binding values
-		 preparedStmt.setString(1, patient.getPid());
-		 preparedStmt.setString(2, patient.getPname());
-		 preparedStmt.setString(3, patient.getPaddress());
-		 preparedStmt.setString(4, patient.getPmobile());
-		 preparedStmt.setString(5, patient.getPage());
-		 preparedStmt.setString(6, patient.getPwd());
-		 
-		 // execute the statement
-		 preparedStmt.execute();
-		 
-		 
-		 output = "Updated successfully";
-		 }
-		 
-		 catch (Exception e)
-		 {
-		 
-			 output = "Error while updating the item.";
-		     System.err.println(e.getMessage());
-		 
-		 }
-		 
-		 return output;
-		 }
-		
+//update
+	public String updatepatient(String id,String name,String address,String mobile,String age,String wd)
+	 {
+		String output = "";
+	try
+	 {
+		Connection con = getConnection();
+	 if (con == null)
+	 {
+		 return "Error while connecting to the database for updating."; }
+	 
+	 String query = "UPDATE patient SET pname=?,pmobile=?,paddress=?,page=?,pwd=? WHERE pid=?";
+	 PreparedStatement preparedStmt = con.prepareStatement(query);
+	 
+	 // binding values
+	 preparedStmt.setString(1, id);
+	 preparedStmt.setString(2, name);
+	 preparedStmt.setString(3, address);
+	 preparedStmt.setString(4, mobile);
+	 preparedStmt.setString(5, age);
+	 preparedStmt.setString(6, wd);
+	 
+	 // execute the statement
+	 preparedStmt.execute();
+	 
+	 
+	 output = "Updated successfully";
+	 }
+	 
+	 catch (Exception e)
+	 {
+	 
+		 output = "Error while updating the item.";
+	     System.err.println(e.getMessage());
+	 
+	 }
+	 
+	 return output;
+	 }
+	
 		
 		//delete patient from database
 		

@@ -2,6 +2,24 @@
  * 
  */
 
+$('input[name="pmobile"]').keyup(function(e)
+                                {
+  if (/\D/g.test(this.value))
+  {
+    // Filter non-digits from input value.
+    this.value = this.value.replace(/\D/g, '');
+  }
+});
+
+var checknumber = $('#page').val();
+
+if(jQuery.isNumeric(checknumber) == false){
+    alert('Please enter numeric value');
+    $('#special_price').focus();
+    return;
+    
+  
+}
 
 $(document).ready(function()
 {
