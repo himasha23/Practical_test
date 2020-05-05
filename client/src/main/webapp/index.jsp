@@ -1,8 +1,41 @@
+<%
+
+//Save---------------------------------
+if (request.getParameter("pid") != null)
+{
+	Patientmokup patientobj = new Patientmokup();
+	String stsMsg = ""; 
+
+
+
+	//Insert--------------------------
+	if (request.getParameter("hidItemIDSave") == "")
+	 {
+	 stsMsg = patientobj.createpatient(request.getParameter("pid"),
+	 request.getParameter("pname"),
+	 request.getParameter("paddress"),
+	 request.getParameter("pmobile"),
+	request.getParameter("page"),
+	request.getParameter("pwd"));
+	 
+	 } 
+
+
+
+
+
+
+%>
+
+<%@page import="com.bin.projec.client.Patientmokup"%>
+
+<!DOCTYPE html>
 <html>
 <head>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+<script src="Components/jquery-3.2.1.min.js"></script>
+<script src="Components/patient.js"></script>
 </head>
 <body>
   <!--    <h2>Jersey RESTful Web Application!</h2>
@@ -13,19 +46,19 @@
     -->
 <form id="formItem" name="formItem" method="post" action="index.jsp" style="width:50%;">
  Id:
-<input id="itemCode" name="itemCode" type="text"
- class="form-control form-control-sm">
+<input id="pid" name="pid" type="text"
+ class="form-control form-control-sm" required>
 <br> Name:
 <input id="itemName" name="itemName" type="text"
  class="form-control form-control-sm">
 <br> Address:
-<input id="itemPrice" name="itemPrice" type="text"
+<input id="addr" name="addr" type="text"
  class="form-control form-control-sm">
  <br> Mobile:
- <input id="page" name="page" type="text"
+ <input id="mobile" name="mobile" type="text"
  class="form-control form-control-sm">
 <br> Age:
-<input id="itemDesc" name="itemDesc" type="text"
+<input id="age" name="age" type="text"
  class="form-control form-control-sm">
 <br>Password
 <input id="pass" name="pass" type="text"
@@ -36,5 +69,21 @@
 <input type="hidden" id="hidItemIDSave" name="hidItemIDSave" value="">
 </form>
     
+    <div id ="alertSuccess" class="alert alert success">
+    <%
+    out.print(session.getAttribute("statusMsg"));
+    %>
+    </div>
+    
+    <div id="alertError" class="alert alert-danger"></div>
+    
+    <br>
+    <%
+    Patientmokup patientobj = new Patientmokup();
+    out.print(patientobj.getPatients());
+    
+    %>
+    
+    </div>
 </body>
 </html>
