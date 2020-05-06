@@ -2,6 +2,7 @@
  * 
  */
 
+
 $('input[name="pmobile"]').keyup(function(e)
                                 {
   if (/\D/g.test(this.value))
@@ -11,15 +12,23 @@ $('input[name="pmobile"]').keyup(function(e)
   }
 });
 
-var checknumber = $('#page').val();
-
-if(jQuery.isNumeric(checknumber) == false){
-    alert('Please enter numeric value');
-    $('#special_price').focus();
-    return;
-    
-  
+$('input[name="page"]').keyup(function(e)
+        {
+if (/\D/g.test(this.value))
+{
+// Filter non-digits from input value.
+this.value = this.value.replace(/\D/g, '');
 }
+});
+
+$('input[name="pid"]').keyup(function(e)
+        {
+if (/\D/g.test(this.value))
+{
+// Filter non-digits from input value.
+this.value = this.value.replace(/\D/g, '');
+}
+});
 
 $(document).ready(function()
 {
@@ -51,25 +60,6 @@ $(document).on("click", "#btnSave", function(event)
 	 
 		}); 
 	 
-	 $(document).on("click", "#btnSave", function(event)
-			 {
-			 // Clear alerts---------------------
-			  $("#alertSuccess").text("");
-			  $("#alertSuccess").hide();
-			  $("#alertError").text("");
-			  $("#alertError").hide(); 
-	 
-			// Form validation-------------------
-			  var status = validateItemForm();
-			  if (status != true)
-			   {
-			   $("#alertError").text(status);
-			   $("#alertError").show();
-			   return;
-			   }
-			  // If valid-------------------------
-			   $("#formItem").submit();
-			  });
 
 	 
 	// UPDATE==========================================

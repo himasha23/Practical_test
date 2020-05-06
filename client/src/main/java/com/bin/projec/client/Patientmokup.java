@@ -32,27 +32,25 @@ List<Patient> patients = new ArrayList<Patient>();
 		
 			List<Patient> patients = new ArrayList<Patient>();
 			
-			output = "<table border=\"1\"><tr><th>id</th><th>name</th><th>address</th><th>mobile</th><th>age</th><th>pwd</th><th>Update</th><th>Remove</th></tr>"; 
+			output = "<table id=\"customers\" border=\"1\"><tr><th>code</th><th>id</th><th>name</th><th>address</th><th>mobile</th><th>age</th><th>password</th><th>Update</th><th>Remove</th></tr>"; 
 			
 			ResultSet result = getConnection().createStatement().executeQuery("select * from patient");
 			while(result.next()) {
 				
-				/*Patient pat = new Patient(); */
-				
 			
-
+				String code = Integer.toString(result.getInt(1));
+				String pid = result.getString(2);
+				String pname = result.getString(3);
+				String paddress = result.getString(4);
+				String pmobile = result.getString(5);
+				String page = result.getString(6);
+				String pwd = result.getString(7);
 				
-				String pid = result.getString(1);
-				String pname = result.getString(2);
-				String paddress = result.getString(3);
-				String pmobile = result.getString(4);
-				String page = result.getString(5);
-				String pwd = result.getString(6);
 				
-				
-				output += "<tr><td><input id=\"hidItemIDUpdate\" name=\"hidItemIDUpdate\"type=\"hidden\" value=\"" + pid + "\">"+ pid + "</td>";
+			output += "<tr><td><input id=\"hidItemIDUpdate\" name=\"hidItemIDUpdate\"type=\"hidden\" value=\"" + code + "\">"+ pid + "</td>";
 				
 				// Add into the html table
+			
 				 output += "<td>" + pid + "</td>";
 				 output += "<td>" + pname + "</td>";
 				 output += "<td>" + paddress + "</td>";
@@ -107,7 +105,7 @@ List<Patient> patients = new ArrayList<Patient>();
 	}
 	
 //update
-	public String updatepatient(String id,String name,String address,String mobile,String age,String wd)
+	public String updatepatient(String code,String id,String name,String address,String mobile,String age,String wd)
 	 {
 		String output = "";
 	try
@@ -117,7 +115,7 @@ List<Patient> patients = new ArrayList<Patient>();
 	 {
 		 return "Error while connecting to the database for updating."; }
 	 
-	 String query = "UPDATE patient SET pname=?,pmobile=?,paddress=?,page=?,pwd=? WHERE pid=?";
+	 String query = "UPDATE patient SET pid=?,pname=?,pmobile=?,paddress=?,page=?,pwd=? WHERE code=?";
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
 	 
 	 // binding values
@@ -138,7 +136,7 @@ List<Patient> patients = new ArrayList<Patient>();
 	 catch (Exception e)
 	 {
 	 
-		 output = "Error while updating the item.";
+		 output = "";
 	     System.err.println(e.getMessage());
 	 
 	 }
@@ -182,7 +180,7 @@ List<Patient> patients = new ArrayList<Patient>();
 			
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/paf_db","root","");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_new","root","");
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
